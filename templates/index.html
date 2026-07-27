@@ -68,4 +68,228 @@ body{
 .upload-area:hover{
 
     background:#eef6ff;
-    border-color:#2563
+    border-color:#2563eb;
+
+}
+
+.upload-area label{
+
+    display:inline-block;
+    background:#2563eb;
+    color:white;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:500;
+    transition:.3s;
+
+}
+
+.upload-area label:hover{
+
+    background:#1e40af;
+
+}
+
+.upload-area input{
+
+    display:none;
+
+}
+
+.upload-area p{
+
+    margin-top:15px;
+    color:#666;
+
+}
+
+button{
+
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#1d4ed8;
+    transform:translateY(-2px);
+
+}
+
+.result{
+
+    margin-top:30px;
+    border-top:1px solid #ddd;
+    padding-top:25px;
+
+}
+
+.result h2{
+
+    color:#1d4ed8;
+    margin-bottom:20px;
+    text-align:center;
+
+}
+
+.result img{
+
+    width:100%;
+    max-width:260px;
+    display:block;
+    margin:auto;
+    border-radius:12px;
+    border:2px solid #ddd;
+
+}
+
+.card{
+
+    background:#f8fafc;
+    border-radius:10px;
+    padding:15px;
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    font-size:16px;
+
+}
+
+.card b{
+
+    color:#1d4ed8;
+
+}
+
+.footer{
+
+    margin-top:25px;
+    text-align:center;
+    color:#777;
+    font-size:13px;
+
+}
+
+@media(max-width:600px){
+
+.container{
+
+    padding:25px;
+
+}
+
+.header h1{
+
+    font-size:24px;
+
+}
+
+button{
+
+    font-size:16px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>Rice Grain Classification</h1>
+
+<p>Upload a rice grain image to identify its variety.</p>
+
+</div>
+
+<form action="/predict" method="POST" enctype="multipart/form-data">
+
+<div class="upload-area">
+
+<label for="image">📁 Choose Image</label>
+
+<input type="file" id="image" name="image" accept="image/*" required>
+
+<p id="file-name">No image selected</p>
+
+</div>
+
+<button type="submit">Predict Rice Type</button>
+
+</form>
+
+{% if prediction %}
+
+<div class="result">
+
+<h2>Prediction Result</h2>
+
+<img src="{{image}}" alt="Rice Image">
+
+<div class="card">
+
+<span>Rice Type</span>
+
+<b>{{prediction}}</b>
+
+</div>
+
+<div class="card">
+
+<span>Confidence</span>
+
+<b>{{confidence}}%</b>
+
+</div>
+
+</div>
+
+{% endif %}
+
+<div class="footer">
+
+Machine Learning Project • Random Forest Classifier
+
+</div>
+
+</div>
+
+<script>
+
+const fileInput = document.getElementById("image");
+const fileName = document.getElementById("file-name");
+
+fileInput.addEventListener("change",function(){
+
+if(this.files.length>0){
+
+fileName.textContent="Selected: "+this.files[0].name;
+
+}else{
+
+fileName.textContent="No image selected";
+
+}
+
+});
+
+</script>
+
+</body>
+
+</html>
